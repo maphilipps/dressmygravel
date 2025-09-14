@@ -5,17 +5,37 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Critical Context (Read First)
 - **Tech Stack**: Next.js 14, TypeScript, Shadcn/ui, Tailwind CSS
-- **Main File**: To be created - Next.js application
-- **Core Mechanic**: Weather-based clothing recommendations for gravel cyclists
-- **Key Integration**: OpenWeatherMap API, Google Analytics 4, Affiliate system
-- **Platform Support**: Web (PWA), Mobile-responsive
-- **DO NOT**: Push sensitive data (API keys, tokens) to repository
+- **Project Type**: Weather-based clothing recommendation PWA for gravel cyclists
+- **Architecture Pattern**: App Router, Server Components where possible, Client Components for interactivity
+- **Data Flow**: IP Geolocation → Weather API → Clothing Engine → UI Components
+- **Caching Strategy**: Aggressive caching at all layers (Browser, SWR, API, CDN)
+- **CRITICAL**: This is a clone/adaptation of dressmyrun.com for gravel biking
+- **REFERENCE**: dressmyrun.js (minified bundle) serves as functional reference only - DO NOT edit directly
 
 ## Session Startup Checklist
 **IMPORTANT**: At the start of each session, check these items:
 1. **Check TASKS.md** - Look for any IN_PROGRESS or BLOCKED tasks from previous sessions
 2. **Review recent JOURNAL.md entries** - Scan last 2-3 entries for context
 3. **If resuming work**: Load the current task context from TASKS.md before proceeding
+
+## Rules Usage
+
+This project uses comprehensive Claude rules to guide development patterns and best practices. The rules are located in `.claude/rules/` and cover:
+
+### Core Development Principles
+- **Compound Engineering Core** (`.claude/rules/compound-engineering-core.md`): Core principles for exponential improvement
+- **ADR Workflow** (`.claude/rules/adr-workflow.md`): Architecture Decision Records process
+- **GitHub Compound Workflow** (`.claude/rules/github-compound-workflow.md`): Enhanced GitHub workflow with learning loops
+
+### Project-Specific Rules (DressMyGravel)
+- **API Integration Patterns** (`.claude/rules/api-integration-patterns.md`): Weather API integration, caching strategies, cost optimization
+- **UI Component Patterns** (`.claude/rules/ui-component-patterns.md`): Next.js 14, Shadcn/ui patterns, mobile-first development
+- **Performance Requirements** (`.claude/rules/performance-requirements.md`): Core Web Vitals, optimization strategies, monitoring
+- **Security Practices** (`.claude/rules/security-practices.md`): API key management, Git security, learned from token exposure incident
+- **GitHub Workflow** (`.claude/rules/github-workflow.md`): Issue management, branch strategy, PR standards specific to this project
+- **Clothing Recommendation Logic** (`.claude/rules/clothing-recommendation-logic.md`): Temperature zones, weather modifiers, gravel-specific factors
+
+**Important**: Always reference these rules when working on the project. They contain critical learnings from the initial setup session, including the API token exposure incident and recovery.
 
 ## Table of Contents
 1. [Architecture](ARCHITECTURE.md) - Tech stack, folder structure, infrastructure
@@ -32,6 +52,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 12. [Task Management](TASKS.md) - Active tasks, phase tracking, context preservation
 
 ## Quick Reference
+**Reference Bundle**: `dressmyrun.js` - Minified reference implementation (DO NOT EDIT)
 **Project Spec**: `docs/project-spec.md` - Complete project specification
 **GitHub Repo**: https://github.com/maphilipps/dressmygravel
 **Issues Board**: https://github.com/maphilipps/dressmygravel/issues
@@ -46,21 +67,41 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `data/` - Static data (clothing items, products)
 - `public/` - Static assets (images, icons)
 
-## Current State
-- [x] GitHub repository created (maphilipps/dressmygravel)
-- [x] Project specification documented
-- [x] 12 GitHub Issues created with milestones
-- [ ] Next.js project setup pending (Issue #1)
-- [ ] Core features implementation pending
+## Implementation Rules (MANDATORY)
 
-## Development Workflow
-1. **Check GitHub Issues**: Review open issues in current milestone
-2. **Create feature branch**: `git checkout -b feature/issue-number-description`
-3. **Implement with TDD**: Write tests first, then implementation
-4. **Use Shadcn components**: Copy & paste from shadcn/ui when needed
-5. **Test locally**: Ensure all tests pass and Lighthouse score >90
-6. **Create PR**: Link to issue with "Fixes #XX"
-7. **Deploy**: After review and merge to main
+### API & Data Handling
+- **ALWAYS round coordinates to 0.1°** for weather caching efficiency
+- **CACHE weather data for minimum 3 hours** - API calls are limited
+- **USE OpenWeatherMap API** as primary, WeatherAPI.com as fallback
+- **IMPLEMENT retry logic** with exponential backoff for API failures
+
+### Clothing Logic Rules
+- **Temperature zones are FIXED**: HOT >25°C, WARM 15-25°C, COOL 5-15°C, COLD <5°C
+- **Gravel rides are LONGER than runs** - Adjust clothing for extended exposure
+- **ALWAYS include helmet as required** - Safety first for cycling
+- **Modifiers are CUMULATIVE** - Rain + Wind = both modifications apply
+
+### UI/UX Requirements
+- **Mobile breakpoint is 640px** - Test everything mobile-first
+- **Use Shadcn's Card component** for all weather/clothing displays
+- **Dark mode is REQUIRED** - Use Shadcn's theme system
+- **Loading states are MANDATORY** - Never show blank screens
+
+### Performance Targets
+- **Lighthouse score MUST be >90** on all metrics
+- **Initial load MUST be <2.5s** on 3G connection
+- **Images MUST use WebP** with fallback to JPEG
+- **Bundle size MUST be <200KB** for initial JavaScript
+
+## Development Workflow (ALWAYS FOLLOW)
+When implementing any feature in this codebase, you MUST:
+1. **ALWAYS work in feature branches** - Never commit directly to main
+2. **ALWAYS check existing patterns first** - Look at similar implementations before creating new ones
+3. **ALWAYS use Shadcn/ui components** - Don't create custom UI components if Shadcn has one
+4. **ALWAYS implement caching for API calls** - Use the established caching patterns in lib/cache
+5. **ALWAYS write TypeScript interfaces first** - Define types before implementation
+6. **ALWAYS test on mobile viewport** - Mobile-first is mandatory
+7. **ALWAYS use environment variables for secrets** - Never hardcode API keys
 
 ## Task Templates
 ### 1. Implement New UI Component
@@ -85,13 +126,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 5. Verify all tests pass
 6. Create PR with "Fixes #[issue-number]"
 
-## Anti-Patterns (Avoid These)
-❌ **Don't commit API keys or tokens** - Use environment variables
-❌ **Don't work on main branch** - Always use feature branches
-❌ **Don't skip tests** - TDD is required for reliability
-❌ **Don't ignore TypeScript errors** - Fix them properly
-❌ **Don't over-engineer** - Keep it simple, use existing solutions
-❌ **Don't forget mobile-first** - Always test on mobile devices
+## Anti-Patterns (NEVER DO THESE)
+❌ **NEVER hardcode API keys** - Will be rejected in PR
+❌ **NEVER create custom UI components when Shadcn has one** - Consistency matters
+❌ **NEVER make uncached API calls** - Every external call must be cached
+❌ **NEVER use 'any' type in TypeScript** - Proper types or generics only
+❌ **NEVER ignore mobile viewport** - Desktop-only features will be rejected
+❌ **NEVER skip loading states** - Users must always see feedback
+❌ **NEVER commit .env files** - Use .env.example for templates
 
 ## Journal Update Requirements
 **IMPORTANT**: Update JOURNAL.md regularly throughout our work sessions:
