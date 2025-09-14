@@ -1,0 +1,63 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run lint)",
+      "Bash(npm test:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm publish:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)",
+      "Bash(git commit:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\ndocs: Add research commands integration plan\n\n- Create integration plan for research commands in every-env\n- Add prompt templates for research-codebase and research-feature\n- Document configuration approach aligned with command pattern refactor\n- Prepare for future research.* namespace while maintaining compatibility\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "mcp__sequential-thinking__sequentialthinking",
+      "WebFetch(domain:every.to)",
+      "Bash(find:*)",
+      "WebSearch",
+      "mcp__fetch__imageFetch",
+      "WebFetch(domain:dressmyrun.com)",
+      "mcp__octocode__githubSearchRepositories",
+      "mcp__octocode__githubViewRepoStructure",
+      "mcp__octocode__githubGetFileContent",
+      "mcp__browser-tools__runDebuggerMode"
+    ],
+    "deny": []
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/pre-tool-use-aw.js"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/pre-tool-use-learn.js"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/completion-validation.js"
+          }
+        ]
+      }
+    ]
+  }
+}
