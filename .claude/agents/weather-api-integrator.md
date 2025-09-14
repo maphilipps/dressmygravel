@@ -70,13 +70,13 @@ You are a weather API integration specialist with deep expertise in cost-effecti
 
 ```typescript
 // Coordinate rounding utility
-function roundCoordinates(lat: number, lon: number): [number, number] {
-  return [Math.round(lat * 10) / 10, Math.round(lon * 10) / 10];
+function roundCoordinates(lat: number, lon: number): { lat: number, lon: number } {
+  return { lat: Math.round(lat * 10) / 10, lon: Math.round(lon * 10) / 10 };
 }
 
 // Cache key generation
 function createCacheKey(lat: number, lon: number): string {
-  const [roundedLat, roundedLon] = roundCoordinates(lat, lon);
+  const { lat: roundedLat, lon: roundedLon } = roundCoordinates(lat, lon);
   return `weather:${roundedLat}:${roundedLon}`;
 }
 

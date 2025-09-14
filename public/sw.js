@@ -29,8 +29,7 @@ if (!self.define) {
 }
 define(['./workbox-4754cb34'], function (e) {
   'use strict';
-  (importScripts(),
-    self.skipWaiting(),
+  (self.skipWaiting(),
     e.clientsClaim(),
     e.precacheAndRoute(
       [
