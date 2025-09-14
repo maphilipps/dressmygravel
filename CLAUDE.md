@@ -4,12 +4,12 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Critical Context (Read First)
-- **Tech Stack**: Vite, React, Tailwind CSS (minified production build)
-- **Main File**: `dressmyrun.js` - 2.1MB minified JavaScript bundle (436 lines)
-- **Core Mechanic**: Minified frontend application for dressmyrun.com
-- **Key Integration**: Sentry error tracking, React JSX runtime
-- **Platform Support**: Web browser application
-- **DO NOT**: Attempt to edit minified JavaScript directly
+- **Tech Stack**: Next.js 14, TypeScript, Shadcn/ui, Tailwind CSS
+- **Main File**: To be created - Next.js application
+- **Core Mechanic**: Weather-based clothing recommendations for gravel cyclists
+- **Key Integration**: OpenWeatherMap API, Google Analytics 4, Affiliate system
+- **Platform Support**: Web (PWA), Mobile-responsive
+- **DO NOT**: Push sensitive data (API keys, tokens) to repository
 
 ## Session Startup Checklist
 **IMPORTANT**: At the start of each session, check these items:
@@ -32,40 +32,66 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 12. [Task Management](TASKS.md) - Active tasks, phase tracking, context preservation
 
 ## Quick Reference
-**Production Bundle**: `dressmyrun.js:1-436` - Minified JavaScript application
-**Documentation**: `CONDUCTOR.md` - Project conductor documentation
+**Project Spec**: `docs/project-spec.md` - Complete project specification
+**GitHub Repo**: https://github.com/maphilipps/dressmygravel
+**Issues Board**: https://github.com/maphilipps/dressmygravel/issues
 **Architecture**: `ARCHITECTURE.md` - System architecture notes
 **Journal**: `JOURNAL.md` - Engineering journal
 **ADRs**: `doc/architecture/decisions/` - Architecture decision records
 
+### Key Directories (to be created)
+- `app/` - Next.js app router pages and API routes
+- `components/` - React components (UI, features)
+- `lib/` - Business logic, utilities, services
+- `data/` - Static data (clothing items, products)
+- `public/` - Static assets (images, icons)
+
 ## Current State
-- [x] Production build deployed (dressmyrun.js)
-- [ ] Source code unavailable (only minified bundle present)
-- [ ] Development environment setup needed
-- [ ] Project reconstruction required from production build
+- [x] GitHub repository created (maphilipps/dressmygravel)
+- [x] Project specification documented
+- [x] 12 GitHub Issues created with milestones
+- [ ] Next.js project setup pending (Issue #1)
+- [ ] Core features implementation pending
 
 ## Development Workflow
-1. **Note**: Source code not available - only production build present
-2. To work with this project, source code needs to be recovered or recreated
-3. The minified JavaScript should not be edited directly
-4. Consider setting up a new development environment
-5. Use existing documentation as reference for project structure
+1. **Check GitHub Issues**: Review open issues in current milestone
+2. **Create feature branch**: `git checkout -b feature/issue-number-description`
+3. **Implement with TDD**: Write tests first, then implementation
+4. **Use Shadcn components**: Copy & paste from shadcn/ui when needed
+5. **Test locally**: Ensure all tests pass and Lighthouse score >90
+6. **Create PR**: Link to issue with "Fixes #XX"
+7. **Deploy**: After review and merge to main
 
 ## Task Templates
-### 1. [Common Task Name]
-1. Step with file:line reference
-2. Step with specific action
-3. Test step
-4. Documentation update
+### 1. Implement New UI Component
+1. Install Shadcn component: `npx shadcn-ui@latest add [component]`
+2. Create wrapper in `components/[feature]/[component].tsx`
+3. Add Storybook story in `[component].stories.tsx`
+4. Write tests in `[component].test.tsx`
+5. Update component documentation
 
-[Include 3-5 templates]
+### 2. Add API Endpoint
+1. Create route handler in `app/api/[endpoint]/route.ts`
+2. Add TypeScript types in `lib/types/[feature].ts`
+3. Implement caching strategy in handler
+4. Write API tests
+5. Document in API specification
+
+### 3. Implement Feature from Issue
+1. Read issue requirements and acceptance criteria
+2. Create feature branch: `git checkout -b feature/[issue-number]`
+3. Write tests first (TDD approach)
+4. Implement feature
+5. Verify all tests pass
+6. Create PR with "Fixes #[issue-number]"
 
 ## Anti-Patterns (Avoid These)
-❌ **Don't edit dressmyrun.js directly** - It's minified production code
-❌ **Don't attempt to reverse-engineer from minified code** - Inefficient and error-prone
-❌ **Don't deploy changes without source code** - No way to rebuild properly
-❌ **Don't modify production bundle** - Will break on next deployment
-❌ **Don't work without version control** - Need proper source management
+❌ **Don't commit API keys or tokens** - Use environment variables
+❌ **Don't work on main branch** - Always use feature branches
+❌ **Don't skip tests** - TDD is required for reliability
+❌ **Don't ignore TypeScript errors** - Fix them properly
+❌ **Don't over-engineer** - Keep it simple, use existing solutions
+❌ **Don't forget mobile-first** - Always test on mobile devices
 
 ## Journal Update Requirements
 **IMPORTANT**: Update JOURNAL.md regularly throughout our work sessions:
