@@ -1,0 +1,35 @@
+# Project Context for AI Development
+
+## Technology Stack
+Primary: rails
+Framework: Ruby on Rails
+Database: 
+CSS: standard
+Authentication: custom
+
+## Architecture Patterns
+- Follows Rails conventions and best practices
+- Test-driven development with automated feedback loops
+- Continuous learning from code reviews and failures
+- AI-assisted development with human oversight
+
+## Development Workflow
+1. AI agents handle routine tasks (testing, review, implementation)
+2. Human oversight ensures quality and architectural coherence  
+3. Every failure becomes a learning opportunity captured in rules
+4. Code reviews feed back into AI knowledge for future improvements
+
+## Key Principles
+- Compounding Engineering: Systems that improve systems
+- Fail Fast, Learn Faster: Convert every error into permanent improvement
+- Context Over Configuration: Maintain lean, project-specific AI guidance
+- Trust but Verify: AI autonomy with human validation checkpoints
+
+## Current Focus Areas
+- Implementing robust testing patterns
+- Establishing clear architectural boundaries
+- Creating feedback loops for continuous improvement
+- Maintaining code quality through automated reviews
+
+Generated: Wed Sep  3 17:08:44 CEST 2025
+Last Updated: Wed Sep  3 17:08:44 CEST 2025
