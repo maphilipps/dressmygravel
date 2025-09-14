@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+out/
+dist/
+
+# Generated files
+*.min.js
+*.min.css
+
+# Logs
+*.log
+logs/
+
+# Documentation that shouldn't be reformatted
+.claude/
+.thoughts/
+.work/
+.adrs/
+doc/
+docs/
+memory-bank/
+
+# Configuration files that might be sensitive
+.env*
+!.env.example
+
+# Large files
+dressmyrun.js
+
+# Cache
+.cache/
+.vercel/
+
+# OS generated files
+.DS_Store
+Thumbs.db

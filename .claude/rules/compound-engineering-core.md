@@ -39,6 +39,8 @@ Every interaction MUST result in permanent institutional knowledge:
 3. **Review Phase**: Use review agents for quality assurance
 4. **Learning Phase**: Use learning agents for pattern extraction
 
+**See Also**: `agent-ecosystem-management.md` for detailed agent design, refactoring, and evolution patterns
+
 ### Agent Handoff Protocol
 When context exceeds 50% or logical phases complete:
 
