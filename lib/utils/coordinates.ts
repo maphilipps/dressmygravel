@@ -10,6 +10,16 @@ export function roundCoordinates(
   lon: number,
   precision = 0.1
 ): { lat: number; lon: number } {
+  // Validate latitude range (-90 to 90)
+  if (lat < -90 || lat > 90) {
+    throw new Error(`Invalid latitude: ${lat}. Must be between -90 and 90.`);
+  }
+
+  // Validate longitude range (-180 to 180)
+  if (lon < -180 || lon > 180) {
+    throw new Error(`Invalid longitude: ${lon}. Must be between -180 and 180.`);
+  }
+
   return {
     lat: Math.round(lat / precision) * precision,
     lon: Math.round(lon / precision) * precision,
